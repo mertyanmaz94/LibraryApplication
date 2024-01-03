@@ -1,0 +1,74 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model Application.ViewModels.LoginDto;
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="kt-login__right">
+    <div class="kt-login__wrapper">
+        <div class="kt-login__signin">
+            <div class="kt-login__head">
+                <h3 class="kt-login__title">Hesabınızla Giriş Yapın</h3>
+            </div>
+
+            <div class="kt-login__form">
+                @if (ViewData.ModelState.ErrorCount > 0)
+                {
+                    <div class="alert alert-danger" asp-validation-summary="All">
+                    </div>
+                }
+                <form asp-controller="Login" asp-action="Index" method="post" class="kt-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div>
+                            <input type="text" asp-for="UserName" name="UserName" class="form-control" placeholder="Username" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="password" asp-for="Password" name="Password" class="form-control" placeholder="Password" required />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                Giriş
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+<script src="~/assets/js/scripts.bundle.js" type="text/javascript"></script>
+@*<script src="https://www.google.com/recaptcha/api.js" async defer></script>*@
+<script src="https://www.google.com/recaptcha/api.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    var displayForgotForm = function () {
+        login.removeClass('kt-login--signin');
+        login.addClass('kt-login--forgot');
+        //login.find('.kt-login--forgot').animateClass('flipInX animated');
+        KTUtil.animateClass(login.find('.kt-login__forgot')[0], 'flipInX animated');
+        console.log("bura ok");
+    }
+
+    var displaySignInForm = function () {
+        login.removeClass('kt-login--forgot');
+
+        login.addClass('kt-login--signin');
+        KTUtil.animateClass(login.find('.kt-login__signin')[0], 'flipInX animated');
+        //login.find('.kt-login__signin').animateClass('flipInX animated');
+    }
+    function enableBtn() {
+        document.getElementById("kt_login_signin_submit").disabled = false;
+    }
+    //PasswordRequest
+    function enableBtn2() {
+        document.getElementById("kt_login_forgot_submit").disabled = false;
+    }
+</script>

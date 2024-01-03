@@ -1,0 +1,52 @@
+﻿@model Application.ViewModels.QrCodeModel;
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="kt-login__right">
+    <div class="kt-login__wrapper">
+        <div class="kt-login__signin">
+            <div class="kt-login__head">
+                <h3 class="kt-login__title">Lütfen Authenticator Kodunu Giriniz</h3>
+            </div>
+            <div class="kt-login__form">
+                @if (ViewData.ModelState.ErrorCount > 0)
+                {
+                    <div class="alert alert-danger" asp-validation-summary="All">
+                    </div>
+                }
+                <form asp-controller="Login" asp-action="QrCode">
+                    <img src="@Model.BarcodeImageUrl" alt="" /><br />
+                    <span style="display:@Model.SetupCodeVisibility">Manual Setup Code:</span>@Model.SetupCode
+                    <div class="form-group">
+                         Authenticator Kodu Gir: <input type="text" asp-for="InputCode" name="InputCode" class="form-control" required />
+                    </div>
+                    <div class="form-group" hidden="hidden">
+                        <div>
+                            <input type="text" asp-for="BarcodeImageUrl" name="BarcodeImageUrl" value="@Model.BarcodeImageUrl" hidden="hidden" />
+                        </div>
+                    </div>
+                    <div class="form-group" hidden="hidden">
+                        <div>
+                            <input type="text" asp-for="SetupCodeVisibility" name="SetupCodeVisibility" value="@Model.SetupCodeVisibility" hidden="hidden" />
+                        </div>
+                    </div>
+                    <div class="form-group" hidden="hidden">
+                        <div>
+                            <input type="text" asp-for="SetupCode" name="SetupCode" value="@Model.SetupCode" hidden="hidden" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                Gönder
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+    "MsSqlConnection": "server=*******; user=*****; password=*****; database=****; TrustServerCertificate=True; Encrypt=False;"
+  },
+  "ImageFileUrl": "D:\\MERT\\PROJECTS\\LIBRARY\\Library\\Web\\wwwroot\\BookImages"
+}
+
+//Kullandığım databasede ve serverda farklı veriler bulunduğunda bilgilerini gizliyorum.

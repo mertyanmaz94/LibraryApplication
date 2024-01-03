@@ -1,0 +1,159 @@
+﻿@model BookDto
+@{
+    ViewData["Title"] = "ListBooks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+ {
+    <link href="~/assets/css/pages/wizard/wizard-4.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/jquery.datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/DataTable/datatables.css" />
+}
+
+<div class="kt-portlet kt-portlet--mobile">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <em class="kt-font-brand flaticon2-line-chart"></em>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                Kitap Listesi
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form asp-action="List" asp-controller="Inventory" method="post" class="form-horizontal form-row-seperated">
+            <!--begin: Search Form -->
+            <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 kt-margin-b-20-tablet-and-mobile">
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Kitap Türü</label>
+                                    <div class="col-lg-9 col-xl-9">
+                                        <select asp-for="BookTypeID" class="form-control" aria-label="Default select example">
+                                            <option selected value="0">Tümü</option>
+                                            @foreach (var bookType in Model.BookTypes)
+                                            {
+                                                <option value="@bookType.ID">@bookType.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions noborder">
+                                    <input type="submit" value="GETİR" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" asp-action="List" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end: Search Form -->
+        </form>
+    </div>
+    @if (Model.Books != null)
+    {
+        <div class="kt-portlet__body kt-portlet__body--fit">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Kitabın Adı
+                        </th>
+                        <th>
+                            Yazarı
+                        </th>
+                        <th style="white-space:nowrap!important; width: 1%">
+                            Kapağı
+                        </th>
+                        <th>
+                            Kütüphanede mi?
+                        </th>
+                        <th>
+                            Okuyucusu
+                        </th>
+                        <th>
+                            Son Kullanma Tarihi
+                        </th>
+                        <th style="white-space:nowrap!important; width: 1%">
+                            Ödünç Ver
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Model.Books)
+                    {
+                        <tr>
+                            <td>
+                                @book.Name
+                            </td>
+                            <td>
+                                @book.Author
+                            </td>
+                            <td >
+                                <img src="/BookImages/@book.PictureUrl" style="max-height:120px!important; max-width:80px!important" />
+                            </td>
+                            @if (book.InTheLibrary)
+                            {
+                                <td>
+                                    Kütüphanede
+                                </td>
+                                <td>
+                                    Henüz Rafta
+                                </td>
+                                <td>
+                                    Süresiz
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Dışarıda
+                                </td>
+                                <td>
+                                    @book.UserReading.Reader.ReaderName  @book.UserReading.Reader.ReaderSurname
+                                </td>
+                                <td>
+                                    @book.UserReading.ExpirationDate
+                                </td>
+                            }
+                            @if (book.InTheLibrary)
+                            {
+                                <td>
+                                    <a asp-controller="Reader" asp-action="Save" asp-route-ID="@book.ID" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Ödünç Ver">
+                                        <em class="la la-edit"></em>
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Ödünç Verildi
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<script src="~/assets/lib/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/assets/css/jquery.datetimepicker.css" />
+<script src="~/assets/js/jquery.datetimepicker.full.min.js"></script>
+<script src="~/assets/DataTable/datatables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+
+<script>
+    var table;
+    setTimeout(function () {
+        table = new DataTable('#example', {
+            scrollX: true,
+            paging: false
+        });
+    }, 200);
+</script> 

@@ -1,0 +1,174 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="">
+    <meta charset="utf-8" />
+    <title>Kütüphane Uygulaması</title>
+    <meta name="description" content="Updates and statistics">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+    <link href="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="~/assets/richtexteditor/rte_theme_default.css" />
+    <script type="text/javascript" src="~/assets/richtexteditor/rte.js"></script>
+    <script type="text/javascript" src="~/assets/richtexteditor/plugins/all_plugins.js"></script>
+
+    <link href="~/assets/css/skins/header/base/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/skins/header/menu/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/skins/brand/dark.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/skins/aside/dark.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/pages/wizard/wizard-2.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" href="~/assets/media/logos/logo_min.jpg" />
+    @RenderSection("Styles", false/*required*/)
+    @RenderSection("HeaderScripts", false/*required*/)
+</head>
+
+<body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--solid kt-page--loading">
+    <!-- begin:: Header Mobile -->
+    <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+        <div class="kt-header-mobile__logo">
+            <a asp-controller="Dashboard" asp-action="Index">
+                <img alt="Logo" src="~/assets/images/library.jpg" />
+            </a>
+        </div>
+        <div class="kt-header-mobile__toolbar">
+            <button class="kt-header-mobile__toggler kt-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+            <button class="kt-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
+            <button class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><em class="flaticon-more"></em></button>
+        </div>
+    </div>
+
+    <!-- end:: Header Mobile -->
+    <div class="kt-grid kt-grid--hor kt-grid--root">
+
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+
+
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+
+                <!-- begin:: Header -->
+                <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+                    <!-- begin:: Header Menu -->
+                    <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+                        <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
+                            <ul class="kt-menu__nav ">
+                                <a asp-controller="Dashboard" asp-action="Index" width="225" height="65">
+                                    <img alt="Logo" src="~/assets/images/library.jpg" width="225" height="65" />
+                                </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end:: Header Menu -->
+                    <!-- begin:: Header Topbar -->
+                    <div class="kt-header__topbar">
+
+                        <!--begin: User Bar -->
+                        <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+                                <div class="kt-header__topbar-user">
+                                    <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
+                                    <span class="kt-header__topbar-username kt-hidden-mobile"> @ViewBag.userName</span>
+
+                                </div>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+
+                                <!--begin: Head -->
+                                <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url(assets/media/misc/bg-1.jpg)">
+                                    <div class="kt-user-card__name">
+                                        @ViewBag.userName
+                                    </div>
+                                </div>
+
+                                <!--end: Head -->
+                                <!--begin: Navigation -->
+                                <div class="kt-notification">
+                                    @* <a href="~/AdminUser/Profile" class="kt-notification__item">
+                                    <div class="kt-notification__item-icon">
+                                    <em class="flaticon2-calendar-3 kt-font-success"></em>
+                                    </div>
+                                    </a>*@
+
+                                    <div class="kt-notification__custom kt-space-between">
+                                        <a href="~/Login/Logout" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
+                                    </div>
+                                </div>
+                                <!--end: Navigation -->
+                            </div>
+                        </div>
+                        <!--end: User Bar -->
+                    </div>
+                    <!-- end:: Header Topbar -->
+                </div>
+                @RenderBody()
+                <div class="kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
+                    <div class="kt-container  kt-container--fluid ">
+                        <div class="kt-footer__copyright">
+                            @DateTime.Now.Year &nbsp;&copy;&nbsp;<a href="http://www.amvg.com" target="_blank" class="kt-link">library</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end:: Footer -->
+            </div>
+        </div>
+    </div>
+    <!-- end:: Page -->
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#5d78ff",
+                    "dark": "#282a3c",
+                    "light": "#ffffff",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995"
+                },
+                "base": {
+                    "label": [
+                        "#c5cbe3",
+                        "#a1a8c3",
+                        "#3d4465",
+                        "#3e4466"
+                    ],
+                    "shape": [
+                        "#f0f3ff",
+                        "#d9dffa",
+                        "#afb4d4",
+                        "#646c9a"
+                    ]
+                }
+            }
+        };
+
+        $.ajax({
+            cache: false
+            //rest of your ajax setup
+        });
+    </script>
+    <!-- end::Global Config -->
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <script src="~/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/assets/js/scripts.bundle.js" type="text/javascript"></script>
+    <!--end::Global Theme Bundle -->
+    <!--begin::Page Vendors(used by this page) -->
+    <script src="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+    @*<script src="~/assets/js/pages/dashboard.js" type="text/javascript"></script>*@
+
+    @RenderSection("Scripts", false/*required*/)
+    <!--end::Page Scripts -->
+</body>
+<!-- end::Body -->
+</html>

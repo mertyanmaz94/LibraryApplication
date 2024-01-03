@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings": {
+    "MsSqlConnection": "server=37.131.255.156; user=aeradmin; password=rXkT84YV; database=WITCHER; TrustServerCertificate=True; Encrypt=False;"
+  },
+  "ImageFileUrl": "D:\\MERT\\PROJECTS\\LIBRARY\\Library\\Web\\wwwroot\\BookImages"
+}
