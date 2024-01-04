@@ -1,4 +1,5 @@
 ﻿using Application.ConfigModels;
+using Application.Filters;
 using Application.Interfaces;
 using Application.ViewModels;
 using Domain.Models;
@@ -6,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class BookController (IBookService bookService, IBookTypeService bookTypeService, ConfigModel configuration) : Controller
+    [BasicAuthorizeAttribute()]
+	public class BookController (IBookService bookService, IBookTypeService bookTypeService, ConfigModel configuration) : Controller
     {
         private readonly IBookService bookService = bookService;
         private readonly IBookTypeService bookTypeService = bookTypeService;

@@ -1,11 +1,13 @@
-﻿using Application.Interfaces;
+﻿using Application.Filters;
+using Application.Interfaces;
 using Application.ViewModels;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class ReaderController(IReaderService readerService, IBookService bookService, IUserReadingService userReadingService) : Controller
+	[BasicAuthorizeAttribute()]
+	public class ReaderController(IReaderService readerService, IBookService bookService, IUserReadingService userReadingService) : Controller
     {
         private readonly IReaderService readerService = readerService;
         private readonly IBookService bookService = bookService;
